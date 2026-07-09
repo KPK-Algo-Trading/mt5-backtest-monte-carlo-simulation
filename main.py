@@ -2,9 +2,17 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 1. Load the data
-# Assuming tab-delimited as per your file snippet
-df = pd.read_csv('testergraph.report.2026.07.09.csv', sep='\t')
+# 1. Load the data with encoding
+df = pd.read_csv('data.csv', sep='\t', encoding='utf-16')
+
+# 2. DEBUG: Print columns to see exactly what they are named
+print("Actual column names in file:")
+print(df.columns.tolist())
+
+# 3. Clean column names (remove hidden spaces or symbols)
+df.columns = df.columns.str.strip()
+
+# 4. Now attempt to convert
 df['DATE'] = pd.to_datetime(df['DATE'])
 df = df.sort_values('DATE')
 
